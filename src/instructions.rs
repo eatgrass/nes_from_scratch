@@ -1,13 +1,17 @@
-use crate::cpu::CPU;
+use crate::{cpu::CPU, operations::{TYA, Operation}};
 
-pub struct Instruction<'a> {
+pub struct Instruction {
     op_code: u8,
-    operate: &'a Operation,
+    operate: Operation,
 }
 
-impl Instruction<'_> {
+impl Instruction {
     pub fn exec(&self, cpu: &mut CPU) {
         (self.operate)(cpu);
     }
 }
 
+pub static tya: Instruction = Instruction {
+    op_code: 0x98,
+    operate: TYA,
+};
